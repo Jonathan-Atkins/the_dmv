@@ -1,0 +1,98 @@
+......FFFFFF..
+
+Failures:
+
+  1) Dmv#initialize can initialize
+     Failure/Error:
+       def initialize(name, address, phone)
+         @name = name
+         @address = address
+         @phone = phone
+         @services = []
+       end
+
+     ArgumentError:
+       wrong number of arguments (given 1, expected 3)
+     # ./lib/facility.rb:4:in `initialize'
+     # ./spec/dmv_spec.rb:7:in `new'
+     # ./spec/dmv_spec.rb:7:in `block (2 levels) in <top (required)>'
+
+  2) Dmv#add facilities can add available facilities
+     Failure/Error:
+       def initialize(name, address, phone)
+         @name = name
+         @address = address
+         @phone = phone
+         @services = []
+       end
+
+     ArgumentError:
+       wrong number of arguments (given 1, expected 3)
+     # ./lib/facility.rb:4:in `initialize'
+     # ./spec/dmv_spec.rb:7:in `new'
+     # ./spec/dmv_spec.rb:7:in `block (2 levels) in <top (required)>'
+
+  3) Dmv#facilities_offering_service can return list of facilities offering a specified Service
+     Failure/Error:
+       def initialize(name, address, phone)
+         @name = name
+         @address = address
+         @phone = phone
+         @services = []
+       end
+
+     ArgumentError:
+       wrong number of arguments (given 1, expected 3)
+     # ./lib/facility.rb:4:in `initialize'
+     # ./spec/dmv_spec.rb:7:in `new'
+     # ./spec/dmv_spec.rb:7:in `block (2 levels) in <top (required)>'
+
+  4) Facility#initialize can initialize
+     Failure/Error:
+       def initialize(name, address, phone)
+         @name = name
+         @address = address
+         @phone = phone
+         @services = []
+       end
+
+     ArgumentError:
+       wrong number of arguments (given 1, expected 3)
+     # ./lib/facility.rb:4:in `initialize'
+     # ./spec/facility_spec.rb:5:in `new'
+     # ./spec/facility_spec.rb:5:in `block (2 levels) in <top (required)>'
+
+  5) Facility#add service can add available services
+     Failure/Error:
+       def initialize(name, address, phone)
+         @name = name
+         @address = address
+         @phone = phone
+         @services = []
+       end
+
+     ArgumentError:
+       wrong number of arguments (given 1, expected 3)
+     # ./lib/facility.rb:4:in `initialize'
+     # ./spec/facility_spec.rb:5:in `new'
+     # ./spec/facility_spec.rb:5:in `block (2 levels) in <top (required)>'
+
+  6) Vehicle#initialize can initialize
+     Failure/Error: expect(@cruz.registration_date).to eq(nil)
+
+     NoMethodError:
+       undefined method `registration_date' for #<Vehicle:0x0000000104998770 @vin="123456789abcdefgh", @year=2012, @make="Chevrolet", @model="Cruz", @engine=:ice>
+     # ./spec/vehicle_spec.rb:17:in `block (3 levels) in <top (required)>'
+
+Finished in 2.11 seconds (files took 0.21343 seconds to load)
+14 examples, 6 failures
+
+Failed examples:
+
+rspec ./spec/dmv_spec.rb:13 # Dmv#initialize can initialize
+rspec ./spec/dmv_spec.rb:20 # Dmv#add facilities can add available facilities
+rspec ./spec/dmv_spec.rb:28 # Dmv#facilities_offering_service can return list of facilities offering a specified Service
+rspec ./spec/facility_spec.rb:8 # Facility#initialize can initialize
+rspec ./spec/facility_spec.rb:18 # Facility#add service can add available services
+rspec ./spec/vehicle_spec.rb:10 # Vehicle#initialize can initialize
+
