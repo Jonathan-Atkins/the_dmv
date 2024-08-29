@@ -1,6 +1,11 @@
 class Dmv
 
-  def initialize
+  attr_reader :name, :address, :phone, :facilities
+
+  def initialize(attributes = {})
+    @name = attributes[:name]
+    @address = attributes[:address]
+    @phone = attributes[:phone]
     @facilities = []
   end
 
