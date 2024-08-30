@@ -5,9 +5,14 @@ RSpec.describe Vehicle do
     @cruz = Vehicle.new({vin: '123456789abcdefgh', year: 2012, make: 'Chevrolet', model: 'Cruz', engine: :ice} )
     @bolt = Vehicle.new({vin: '987654321abcdefgh', year: 2019, make: 'Chevrolet', model: 'Bolt', engine: :ev} )
     @camaro = Vehicle.new({vin: '1a2b3c4d5e6f', year: 1969, make: 'Chevrolet', model: 'Camaro', engine: :ice} )
+
+    @facility_1 = Facility.new({name: 'DMV Tremont Branch', address: '2855 Tremont Place Suite 118 Denver CO 80205', phone: '(720) 865-4600'})
+    @facility_2 = Facility.new({name: 'DMV Northeast Branch', address: '4685 Peoria Street Suite 101 Denver CO 80239', phone: '(720) 865-4600'})
   end
+
   describe '#initialize' do
     it 'can initialize' do
+
       expect(@cruz).to be_an_instance_of(Vehicle)
       expect(@cruz.vin).to eq('123456789abcdefgh')
       expect(@cruz.year).to eq(2012)
@@ -15,6 +20,7 @@ RSpec.describe Vehicle do
       expect(@cruz.model).to eq('Cruz')
       expect(@cruz.engine).to eq(:ice)
       expect(@cruz.registration_date).to eq(nil)
+      expect(@cruz.plate_type).to eq(nil)
     end
   end
 
@@ -31,6 +37,25 @@ RSpec.describe Vehicle do
       expect(@cruz.electric_vehicle?).to eq(false)
       expect(@bolt.electric_vehicle?).to eq(true)
       expect(@camaro.electric_vehicle?).to eq(false)
+    end
+  end
+
+  describe '#registration' do
+
+  before(:each) do
+    @facility_1.register_vehicle(@cruz)
+  end
+
+    it 'identifies if a vehicle is registered' do
+
+      expect(@facility_1.registered_vehicles.include?(@cruz)).to eq(true)
+    end
+
+    xit 'adds a registration date' do
+      # require 'pry'; binding.pry
+      @facility_1.register_vehicle(@cruz)
+require 'pry'; binding.pry
+      expect(@cruz.add_registration_date("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
     end
   end
 end
