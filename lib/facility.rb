@@ -23,4 +23,10 @@ class Facility
       vehicle.add_registration_date(date)
     end
   end
+
+  def add_plate_type(vehicle, plate_type)
+    if @registered_vehicles.include?(vehicle)
+      vehicle.add_plate_type(plate_type)
+    end
+  end
 end
