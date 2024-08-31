@@ -39,11 +39,18 @@ RSpec.describe Facility do
 
       expect(@facility_1.registered_vehicles).to eq([])
     end
-  end
 
     it 'can add registered vehicles' do
       @facility_1.register_vehicle(@cruz)
-# require 'pry'; binding.pry
+
       expect(@facility_1.registered_vehicles).to eq([@cruz])
     end
+
+    it 'collects registration fees' do
+      fee = 100
+      @facility_1.collect_fees(@cruz, fee)
+
+      expect(@facility_1.collected_fees).to eq(100)
+    end
+  end
 end
