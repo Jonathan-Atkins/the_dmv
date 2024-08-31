@@ -19,7 +19,8 @@ RSpec.describe Vehicle do
       expect(@cruz.make).to eq('Chevrolet')
       expect(@cruz.model).to eq('Cruz')
       expect(@cruz.engine).to eq(:ice)
-      expect(@cruz.registration_date).to eq(nil)
+      # require 'pry';binding.pry
+      expect(@cruz.registration_date).to be_nil
       expect(@cruz.plate_type).to eq(nil)
     end
   end
@@ -47,15 +48,16 @@ RSpec.describe Vehicle do
   end
 
     it 'identifies if a vehicle is registered' do
-
+      # require 'pry'; binding.pry
       expect(@facility_1.registered_vehicles.include?(@cruz)).to eq(true)
     end
 
-    xit 'adds a registration date' do
-      # require 'pry'; binding.pry
-      @facility_1.register_vehicle(@cruz)
-require 'pry'; binding.pry
-      expect(@cruz.add_registration_date("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
+    it 'adds a registration date when registered' do
+      date = "Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j"
+      
+      @facility_1.add_registration_date(@cruz, date)
+
+      expect(@cruz.registration_date).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
     end
   end
 end

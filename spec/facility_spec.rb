@@ -1,6 +1,7 @@
 require 'spec_helper'
-
+# require 'pry'; binding.pry
 RSpec.describe Facility do
+
   before(:each) do
     @facility_1 = Facility.new({name: 'DMV Tremont Branch', address: '2855 Tremont Place Suite 118 Denver CO 80205', phone: '(720) 865-4600'})
     @facility_2 = Facility.new({name: 'DMV Northeast Branch', address: '4685 Peoria Street Suite 101 Denver CO 80239', phone: '(720) 865-4600'})
@@ -34,7 +35,6 @@ RSpec.describe Facility do
   end
 
   describe '#registration' do
-
     it 'starts with an empty array of registered vehicles' do
 
       expect(@facility_1.registered_vehicles).to eq([])
@@ -43,8 +43,7 @@ RSpec.describe Facility do
 
     it 'can add registered vehicles' do
       @facility_1.register_vehicle(@cruz)
-
+# require 'pry'; binding.pry
       expect(@facility_1.registered_vehicles).to eq([@cruz])
     end
-
 end
