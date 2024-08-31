@@ -39,4 +39,7 @@ class Vehicle
     @plate_type = plate_type
   end
 
+  def collect_fees(fee)
+    @collected_fees = collected_fees
+  end
 end

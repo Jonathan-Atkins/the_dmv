@@ -29,4 +29,10 @@ class Facility
       vehicle.add_plate_type(plate_type)
     end
   end
+
+  def collect_fees(vehicle, fee)
+    if @registered_vehicles.include?(vehicle)
+      vehicle.collect_fees(fee)  
+    end
+  end
 end

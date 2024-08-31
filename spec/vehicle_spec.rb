@@ -66,5 +66,13 @@ RSpec.describe Vehicle do
 # require 'pry'; binding.pry
       expect(@cruz.plate_type).to eq("regular")
     end
+
+    xit 'collects registration fees' do
+      fee = 100
+      @facility_1.collect_fees(@cruz, fee)
+
+      require 'pry'; binding.pry
+      expect(@facility_1.collected_fees).to eq(100)
+    end
   end
 end
