@@ -19,7 +19,6 @@ RSpec.describe Vehicle do
       expect(@cruz.make).to eq('Chevrolet')
       expect(@cruz.model).to eq('Cruz')
       expect(@cruz.engine).to eq(:ice)
-      # require 'pry';binding.pry
       expect(@cruz.registration_date).to be_nil
       expect(@cruz.plate_type).to eq(nil)
     end
@@ -44,27 +43,35 @@ RSpec.describe Vehicle do
   describe '#registration' do
 
   before(:each) do
-    @facility_1.register_vehicle(@cruz)
+    date = "Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j"
+    @facility_1.register_vehicle(@cruz, date)
+    @facility_1.register_vehicle(@camaro, date)
+    @facility_1.register_vehicle(@bolt, date)
   end
 
     it 'identifies if a vehicle is registered' do
-      # require 'pry'; binding.pry
-      expect(@facility_1.registered_vehicles.include?(@cruz)).to eq(true)
+
+      expect(@facility_1.registered_vehicles).to include(@cruz, @camaro, @bolt)
     end
 
     it 'adds a registration date when registered' do
-      date = "Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j"
-      
-      @facility_1.add_registration_date(@cruz, date)
 
       expect(@cruz.registration_date).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
+      expect(@camaro.registration_date).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
+      expect(@bolt.registration_date).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
     end
 
     it 'adds a plate type when registered' do
-      plate_type = "regular"
-      @facility_1.add_plate_type(@cruz, plate_type)
-# require 'pry'; binding.pry
-      expect(@cruz.plate_type).to eq("regular")
+    
+      expect(@cruz.plate_type).to eq(:regular)
+      expect(@camaro.plate_type).to eq(:antique)
+      expect(@bolt.plate_type).to eq(:ev)
+    end
+
+    it 'calculates registration fees' do
+      expect(@cruz.registration_fee).to eq(100)
+      expect(@camaro.registration_fee).to eq(25)
+      expect(@bolt.registration_fee).to eq(200)
     end
 
   end

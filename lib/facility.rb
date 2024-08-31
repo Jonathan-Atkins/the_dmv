@@ -14,25 +14,23 @@ class Facility
     @services << service
   end
 
-  def register_vehicle(vehicle)
+  def register_vehicle(vehicle, date)
     @registered_vehicles << vehicle
+    vehicle.add_registration_date(date)
+
+    if vehicle.antique?
+      vehicle.assign_plate_type(:antique)
+    elsif vehicle.electric_vehicle?
+      vehicle.assign_plate_type(:ev)
+    else
+      vehicle.assign_plate_type(:regular)
+    end
+    
+    vehicle.calculate_fees
+    collect_fee(vehicle.registration_fee)
   end
 
-  def add_registration_date(vehicle, date)
-    if @registered_vehicles.include?(vehicle)
-      vehicle.add_registration_date(date)
-    end
-  end
-
-  def add_plate_type(vehicle, plate_type)
-    if @registered_vehicles.include?(vehicle)
-      vehicle.add_plate_type(plate_type)
-    end
-  end
-
-  def collect_fees(vehicle, fee)
-    if @registered_vehicles.include?(vehicle)
-      vehicle.collect_fees(fee)  
-    end
+  def collect_fee(amount)
+    @collected_fees += amount
   end
 end

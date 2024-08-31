@@ -9,7 +9,7 @@ class Vehicle
               :engine,
               :plate_type,
               :registration_date, 
-              :collected_fees
+              :registration_fee
 
   def initialize(vehicle_details = {})
     @vin = vehicle_details[:vin]
@@ -19,7 +19,7 @@ class Vehicle
     @engine = vehicle_details[:engine]
     @plate_type = nil
     @registration_date = nil
-    @collected_fees = nil
+    @registration_fee = 0
     
   end
 
@@ -31,15 +31,26 @@ class Vehicle
     @engine == :ev
   end
 
+  def regular?
+    @engine != :ev && Date.today.year - @year <= 25
+  end
+
   def add_registration_date(date)
     @registration_date = date
+    calculate_fees
   end
 
-  def add_plate_type(plate_type)
-    @plate_type = plate_type
+  def assign_plate_type(type)
+    @plate_type = type
   end
 
-  def collect_fees(fee)
-    @collected_fees = collected_fees
+  def calculate_fees
+    if antique?
+      @registration_fee = 25
+    elsif electric_vehicle?
+      @registration_fee = 200
+    else 
+      @registration_fee = 100
+    end
   end
 end
