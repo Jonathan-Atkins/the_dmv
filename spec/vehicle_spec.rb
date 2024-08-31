@@ -47,7 +47,7 @@ RSpec.describe Vehicle do
     @facility.register_vehicle(@bolt)
   end
 
-    it 'identifies if a vehicle is registered' do
+    it 'adds registered vehicles to the facilitys registered vehicles array' do
       expect(@facility.registered_vehicles).to include(@cruz, @camaro, @bolt)
     end
 

@@ -83,10 +83,5 @@ RSpec.describe Facility do
 
     expect(@facility.collected_fees).to eq(325)  
     end 
-
-    it 'collects registration fees' do
-
-      expect(@facility.collected_fees).to eq(325)
-    end
   end
 end

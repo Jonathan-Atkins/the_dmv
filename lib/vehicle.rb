@@ -1,5 +1,4 @@
 require 'date'
-require_relative 'facility'
 
 class Vehicle
   attr_reader :vin,
@@ -32,28 +31,25 @@ class Vehicle
   end
 
   def calculate_fees
-    if antique?
-      @registration_fee = 25
-    elsif electric_vehicle?
-      @registration_fee = 200
-    else 
-      @registration_fee = 100
-    end
+    @registration_fee = case plate_type
+                          when :antique then 25
+                          when :ev then 200
+                          else 100
+                        end
   end
 
   def assign_plate_type
-    if antique?
-      @plate_type = :antique 
-    elsif electric_vehicle?
-      @plate_type = :ev
-    else 
-      @plate_type = :regular
-    end
+    @plate_type = case
+                    when antique? then :antique
+                    when electric_vehicle? then :ev
+                    else :regular
+                  end
   end
   
   def register(date) 
     @registration_date = date
-    calculate_fees
+    
     assign_plate_type
+    calculate_fees
   end
 end
