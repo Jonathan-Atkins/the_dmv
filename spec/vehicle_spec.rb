@@ -6,8 +6,7 @@ RSpec.describe Vehicle do
     @bolt = Vehicle.new({vin: '987654321abcdefgh', year: 2019, make: 'Chevrolet', model: 'Bolt', engine: :ev} )
     @camaro = Vehicle.new({vin: '1a2b3c4d5e6f', year: 1969, make: 'Chevrolet', model: 'Camaro', engine: :ice} )
 
-    @facility_1 = Facility.new({name: 'DMV Tremont Branch', address: '2855 Tremont Place Suite 118 Denver CO 80205', phone: '(720) 865-4600'})
-    @facility_2 = Facility.new({name: 'DMV Northeast Branch', address: '4685 Peoria Street Suite 101 Denver CO 80239', phone: '(720) 865-4600'})
+    @facility = Facility.new({name: 'DMV Tremont Branch', address: '2855 Tremont Place Suite 118 Denver CO 80205', phone: '(720) 865-4600'})
   end
 
   describe '#initialize' do
@@ -43,26 +42,22 @@ RSpec.describe Vehicle do
   describe '#registration' do
 
   before(:each) do
-    date = "Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j"
-    @facility_1.register_vehicle(@cruz, date)
-    @facility_1.register_vehicle(@camaro, date)
-    @facility_1.register_vehicle(@bolt, date)
+    @facility.register_vehicle(@cruz)
+    @facility.register_vehicle(@camaro)
+    @facility.register_vehicle(@bolt)
   end
 
     it 'identifies if a vehicle is registered' do
-
-      expect(@facility_1.registered_vehicles).to include(@cruz, @camaro, @bolt)
+      expect(@facility.registered_vehicles).to include(@cruz, @camaro, @bolt)
     end
 
     it 'adds a registration date when registered' do
-
       expect(@cruz.registration_date).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
       expect(@camaro.registration_date).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
       expect(@bolt.registration_date).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
     end
 
     it 'adds a plate type when registered' do
-    
       expect(@cruz.plate_type).to eq(:regular)
       expect(@camaro.plate_type).to eq(:antique)
       expect(@bolt.plate_type).to eq(:ev)
@@ -73,6 +68,5 @@ RSpec.describe Vehicle do
       expect(@camaro.registration_fee).to eq(25)
       expect(@bolt.registration_fee).to eq(200)
     end
-
   end
 end

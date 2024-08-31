@@ -1,5 +1,5 @@
 class Facility
-  attr_reader :name, :address, :phone, :services, :registered_vehicles, :collected_fees
+  attr_reader :name, :address, :phone, :services, :registered_vehicles, :collected_fees, :default_registration_date
 
   def initialize(facility_details = {})
     @name = facility_details[:name]
@@ -8,29 +8,20 @@ class Facility
     @services = []
     @registered_vehicles = []
     @collected_fees = 0
+    @default_registration_date = "Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j"
   end
 
   def add_service(service)
     @services << service
   end
 
-  def register_vehicle(vehicle, date)
+  def register_vehicle(vehicle)
+    vehicle.register(@default_registration_date)
+    collect_fees(vehicle.registration_fee) 
     @registered_vehicles << vehicle
-    vehicle.add_registration_date(date)
-
-    if vehicle.antique?
-      vehicle.assign_plate_type(:antique)
-    elsif vehicle.electric_vehicle?
-      vehicle.assign_plate_type(:ev)
-    else
-      vehicle.assign_plate_type(:regular)
-    end
-    
-    vehicle.calculate_fees
-    collect_fee(vehicle.registration_fee)
   end
 
-  def collect_fee(amount)
+  def collect_fees(amount)
     @collected_fees += amount
   end
 end

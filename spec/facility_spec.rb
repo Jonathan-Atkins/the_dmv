@@ -26,6 +26,12 @@ RSpec.describe Facility do
       expect(@facility_2.phone).to eq('(720) 865-4600')
       expect(@facility_2.services).to eq([])
     end
+
+    it 'starts with an empty array of registered vehicles' do
+
+      expect(@facility.registered_vehicles).to eq([])
+    end
+      
   end
 
   describe '#services' do
@@ -40,41 +46,47 @@ RSpec.describe Facility do
   end
 
   describe '#vehicle registration' do
-    it 'starts with an empty array of registered vehicles' do
 
-      expect(@facility.registered_vehicles).to eq([])
+  before(:each) do
+      @facility.register_vehicle(@cruz)
+      @facility.register_vehicle(@camaro)
+      @facility.register_vehicle(@bolt)
     end
 
-    it 'registers a vehicle' do
-      
-      date = "Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j"
-      @facility_1.register_vehicle(@cruz, date)
-      @facility_1.register_vehicle(@camaro, date)
-      @facility_1.register_vehicle(@bolt, date)
-  
-      expect(@facility_1.registered_vehicles).to eq([@cruz, @camaro, @bolt])
+   it 'identifies if a vehicle is registered' do
+    # require 'pry'; binding.pry
+      expect(@facility.registered_vehicles).to include(@cruz, @camaro, @bolt)
+    end
 
-      expect(@cruz.registration_date).to eq(date)
+    it 'adds a registration date when registered' do
+
+      expect(@cruz.registration_date).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
+      expect(@camaro.registration_date).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
+      expect(@bolt.registration_date).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
+    end
+
+    it 'adds a plate_type when registered' do
+
       expect(@cruz.plate_type).to eq(:regular)
-      expect(@cruz.registration_fee).to eq(100)
-
-      expect(@camaro.registration_date).to eq(date)
       expect(@camaro.plate_type).to eq(:antique)
-      expect(@camaro.registration_fee).to eq(25)
-
-      expect(@bolt.registration_date).to eq(date)
       expect(@bolt.plate_type).to eq(:ev)
-      expect(@bolt.registration_fee).to eq(200)
-
-      expect(@facility_1.collected_fees).to eq(325)
     end
+
+    it 'calculates registration fees' do
+
+      expect(@cruz.registration_fee).to eq(100)
+      expect(@camaro.registration_fee).to eq(25)
+      expect(@bolt.registration_fee).to eq(200)
+    end
+
+    it 'collects regisration fees' do
+
+    expect(@facility.collected_fees).to eq(325)  
+    end 
 
     it 'collects registration fees' do
-      date = "Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j"
-      
-      @facility_1.register_vehicle(@cruz, date)
 
-      expect(@facility_1.collected_fees).to eq(100)
+      expect(@facility.collected_fees).to eq(325)
     end
   end
 end
