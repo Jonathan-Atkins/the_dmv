@@ -35,4 +35,8 @@ class Vehicle
     @registration_date = date
   end
 
+  def add_plate_type(plate_type)
+    @plate_type = plate_type
+  end
+
 end

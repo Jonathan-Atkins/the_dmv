@@ -59,5 +59,12 @@ RSpec.describe Vehicle do
 
       expect(@cruz.registration_date).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
     end
+
+    it 'adds a plate type when registered' do
+      plate_type = "regular"
+      @facility_1.add_plate_type(@cruz, plate_type)
+# require 'pry'; binding.pry
+      expect(@cruz.plate_type).to eq("regular")
+    end
   end
 end
