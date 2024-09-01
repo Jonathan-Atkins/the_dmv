@@ -42,7 +42,7 @@ class Facility
     @collected_fees += if vehicle.plate_type == :regular
       100
     elsif vehicle.plate_type == :ev
-       200
+      200
     else
       25
     end
@@ -52,6 +52,8 @@ class Facility
     if @services.include?("Written Test")
       if registrant.permit? == true && registrant.age >= 16
         registrant.license_data[:written] = true
+      else
+      false
       end
     else
       false
@@ -62,6 +64,8 @@ class Facility
     if @services.include?("Road Test")
       if registrant.license_data[:written] == true
         registrant.license_data[:license] = true
+      else
+        false
       end
     else
       false
@@ -75,6 +79,8 @@ class Facility
       else
         false
       end
+    else
+      false
     end
   end
 end
