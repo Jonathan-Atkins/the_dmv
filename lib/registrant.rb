@@ -1,3 +1,6 @@
+require './lib/registrant'
+require './lib/facility'
+
 
 class Registrant
     attr_reader :name, :age , :permit, :licensed_data

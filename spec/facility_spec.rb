@@ -1,4 +1,5 @@
 require 'spec_helper'
+require './lib/registrant'
 
 RSpec.describe Facility do
   before(:each) do
@@ -8,6 +9,11 @@ RSpec.describe Facility do
     @cruz = Vehicle.new({vin: '123456789abcdefgh', year: 2012, make: 'Chevrolet', model: 'Cruz', engine: :ice} )
     @bolt = Vehicle.new({vin: '987654321abcdefgh', year: 2019, make: 'Chevrolet', model: 'Bolt', engine: :ev} )
     @camaro = Vehicle.new({vin: '1a2b3c4d5e6f', year: 1969, make: 'Chevrolet', model: 'Camaro', engine: :ice} )
+
+    @registrant_1 = Registrant.new('Bruce', 18, true)
+    @registrant_2 = Registrant.new('Penny', 16 )
+    @registrant_3 = Registrant.new('Tucker', 15 )
+  
   end
   
   describe '#initialize' do
@@ -30,8 +36,8 @@ RSpec.describe Facility do
     end
   end
 
-  describe 'register vehicle' do
-    it 'can register_vehicle' do
+  describe '#register vehicle' do
+    it 'can register_vehicle & count fees' do
       expect(@cruz.registration_date).to eq(nil)
       expect(@facility_1.registered_vehicles).to eq([])
       expect(@facility_1.collected_fees).to eq(0)
@@ -55,6 +61,24 @@ RSpec.describe Facility do
       expect(@bolt.registration_date).to eq(Date.today)
       expect(@bolt.plate_type).to eq(:ev)
       expect(@facility_1.registered_vehicles).to eq([@cruz, @camaro, @bolt])
-    end
+    
+      expect(@facility_1.collected_fees).to eq(325)
+
+
+      expect(@facility_2.registered_vehicles).to eq([])
+      expect(@facility_2.services).to eq([])
+      expect(@facility_2.register_vehicle(@bolt)).to eq(nil)
+      expect(@facility_2.registered_vehicles).to eq([])
+      expect(@facility_2.collected_fees).to eq(0)
+    end  
+  end
+  
+  describe 'Getting a Drivers Licence' do
+    it 'can input a drivers license' do
+
+    expect(@registrant_1.licensed_data).to eq({:written=>false, :license=>false, :renewed=>false})
+    expect(@registrant_1.permit).to eq(true)
+    expect(@facility_1.administer_written_test(@registrant_1)).to eq(false)
+  end
   end
 end
