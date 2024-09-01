@@ -18,17 +18,14 @@ class Facility
     @services << service
   end
 
-  def register_vehicle(vehicle)
-    @vehicle.registration_date = Date.today
+  def register_vehicle(vehicle)    
+    return nil unless @services.include?('Vehicle Registration')    
     
-    if vehicle.age > 25
-      vehicle.plate_type = :antique
-      @collected_fees += 25
+    unless @registered_vehicles.include?(vehicle)
+      @registered_vehicles << vehicle
+      vehicle.set_registration_date(Date.today)
     end
-
-    @registered_vehicles << vehicle
   end
-
 end
 binding.pry
 
