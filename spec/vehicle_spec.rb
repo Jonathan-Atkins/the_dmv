@@ -49,21 +49,17 @@ RSpec.describe Vehicle do
   end
 
     it 'adds a registration date when registered' do
-      expect(@cruz.registration_date).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
-      expect(@camaro.registration_date).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
-      expect(@bolt.registration_date).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
+      registration_date = Date.today 
+
+      expect(@cruz.registration_date).to eq(registration_date)
+      expect(@camaro.registration_date).to eq(registration_date)
+      expect(@bolt.registration_date).to eq(registration_date)
     end
 
     it 'adds a plate type when registered' do
       expect(@cruz.plate_type).to eq(:regular)
       expect(@camaro.plate_type).to eq(:antique)
       expect(@bolt.plate_type).to eq(:ev)
-    end
-
-    it 'calculates registration fees' do
-      expect(@cruz.registration_fee).to eq(100)
-      expect(@camaro.registration_fee).to eq(25)
-      expect(@bolt.registration_fee).to eq(200)
     end
   end
 end

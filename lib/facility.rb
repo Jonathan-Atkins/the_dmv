@@ -8,7 +8,6 @@ class Facility
     @services = []
     @registered_vehicles = []
     @collected_fees = 0
-    @default_registration_date = "Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j"
 
   end
 
@@ -16,24 +15,44 @@ class Facility
     @services << service
   end
 
+  def assign_plate_type(vehicle)
+    if vehicle.antique?
+       vehicle.plate_type = :antique
+    elsif vehicle.electric_vehicle?
+      vehicle.plate_type = :ev
+    else
+      vehicle.plate_type = :regular
+    end
+  end
+
   def register_vehicle(vehicle)
     if @services.include?("Vehicle Registration")
-        vehicle.register(@default_registration_date)
-        collect_fees(vehicle.registration_fee) 
+        vehicle.registration_date = Date.today
+        assign_plate_type(vehicle)
+        # require 'pry'; binding.pry
+        calculate_fees(vehicle)
         @registered_vehicles << vehicle
     else
       false
     end
   end
 
-  def collect_fees(amount)
-    @collected_fees += amount
+  def calculate_fees(vehicle)
+# require 'pry'; binding.pry
+    @collected_fees += if vehicle.plate_type == :regular
+      100
+    elsif vehicle.plate_type == :ev
+       200
+    else
+      25
+    end
   end
 
   def administer_written_test(registrant)
-    if 
-      @services.include?("Written Test")
-      true
+    if @services.include?("Written Test")
+      if registrant.permit? == true && registrant.age >= 16
+        registrant.license_data[:written] = true
+      end
     else
       false
     end

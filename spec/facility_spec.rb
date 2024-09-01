@@ -11,6 +11,8 @@ RSpec.describe Facility do
     @bolt = Vehicle.new({vin: '987654321abcdefgh', year: 2019, make: 'Chevrolet', model: 'Bolt', engine: :ev})
     @camaro = Vehicle.new({vin: '1a2b3c4d5e6f', year: 1969, make: 'Chevrolet', model: 'Camaro', engine: :ice})
 
+    @registrant_1 = Registrant.new("Bruce", 18, true) 
+
   end
   describe '#initialize' do
     it 'can initialize' do
@@ -75,10 +77,11 @@ RSpec.describe Facility do
     end
 
     it 'adds a registration date when registered' do
+      registration_date = Date.today
 
-      expect(@cruz.registration_date).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
-      expect(@camaro.registration_date).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
-      expect(@bolt.registration_date).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
+      expect(@cruz.registration_date).to eq(registration_date)
+      expect(@camaro.registration_date).to eq(registration_date)
+      expect(@bolt.registration_date).to eq(registration_date)
     end
 
     it 'adds a plate_type when registered' do
@@ -86,13 +89,6 @@ RSpec.describe Facility do
       expect(@cruz.plate_type).to eq(:regular)
       expect(@camaro.plate_type).to eq(:antique)
       expect(@bolt.plate_type).to eq(:ev)
-    end
-
-    it 'calculates registration fees' do
-
-      expect(@cruz.registration_fee).to eq(100)
-      expect(@camaro.registration_fee).to eq(25)
-      expect(@bolt.registration_fee).to eq(200)
     end
 
     it 'collects regisration fees' do
