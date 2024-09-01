@@ -9,6 +9,7 @@ class Facility
     @registered_vehicles = []
     @collected_fees = 0
     @default_registration_date = "Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j"
+
   end
 
   def add_service(service)
@@ -24,4 +25,10 @@ class Facility
   def collect_fees(amount)
     @collected_fees += amount
   end
+
+  # def administer_written_test(registrant)
+  #   if registrant.license_data{written = false}
+  #   @false
+  #   end
+  # end
 end
