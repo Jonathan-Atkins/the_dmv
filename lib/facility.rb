@@ -17,18 +17,27 @@ class Facility
   end
 
   def register_vehicle(vehicle)
-    vehicle.register(@default_registration_date)
-    collect_fees(vehicle.registration_fee) 
-    @registered_vehicles << vehicle
+    if @services.include?("Vehicle Registration")
+        vehicle.register(@default_registration_date)
+        collect_fees(vehicle.registration_fee) 
+        @registered_vehicles << vehicle
+    else
+      false
+    end
   end
 
   def collect_fees(amount)
     @collected_fees += amount
   end
 
-  # def administer_written_test(registrant)
-  #   if registrant.license_data{written = false}
-  #   @false
-  #   end
-  # end
+  def administer_written_test(registrant)
+    if 
+      @services.include?("Written Test") && 
+      registrant.permit? == true && 
+      registrant.age >= 16
+      true
+    else
+      false
+    end
+  end
 end

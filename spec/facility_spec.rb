@@ -50,21 +50,24 @@ RSpec.describe Facility do
     end
   end
 
-    xit 'cannot perform services it has not added' do
-    # require 'pry'; binding.pry
-      expect(@facility_1.administer_written_test(@registrant_1)).to eq(false)
-    end
-
   describe '#vehicle registration' do
 
   before(:each) do
+      @facility.add_service('Vehicle Registration')
       @facility.register_vehicle(@cruz)
       @facility.register_vehicle(@camaro)
       @facility.register_vehicle(@bolt)
     end
 
+    it 'cannot perform services it has not added' do
+      # require 'pry'; binding.pry
+        expect(@facility_2.register_vehicle(@cruz)).to eq(false)
+        expect(@facility_2.administer_written_test(@registrant_1)).to eq(false)
+      end  
+
    it 'identifies if a vehicle is registered' do
       expect(@facility.registered_vehicles).to include(@cruz, @camaro, @bolt)
+      expect(@facility_2.registered_vehicles).to eq([])
     end
 
     it 'adds a registration date when registered' do
@@ -94,11 +97,12 @@ RSpec.describe Facility do
     end 
   end
 
-  # describe '#getting a drivers license' do
-  #   it 'administers written tests' do
-  #     @facility_1.add_service('Written Test')
-
-  #     expect(@facility_1.administer_written_test(@registrant_1)).to eq(false)
-
-  #   end
+  describe '#getting a drivers license' do
+    it 'administers written tests' do
+      @facility_1.add_service('Written Test')
+# require 'pry'; binding.pry
+      expect(@facility_1.administer_written_test(@registrant_1)).to eq(false)
+      expect(@facility_2.administer_written_test(@registrant_1)).to eq(false)
+    end
   end
+end
