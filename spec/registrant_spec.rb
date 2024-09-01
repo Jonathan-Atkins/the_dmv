@@ -44,4 +44,10 @@ RSpec.describe Registrant do
             expect(@registrant_2.permit?).to eq(true)
         end
     end
+
+    it 'passes the written test' do
+        @facility_1.administer_written_test(@registrant_1) 
+  # require 'pry'; binding.pry
+        expect(@registrant_1.license_data).to eq({written: false, license: false, renewed: false})
+    end
 end

@@ -65,6 +65,10 @@ RSpec.describe Facility do
         expect(@facility_2.administer_written_test(@registrant_1)).to eq(false)
       end  
 
+      it 'adds registered vehicles to the facilitys registered vehicles array' do
+        expect(@facility.registered_vehicles).to include(@cruz, @camaro, @bolt)
+      end  
+
    it 'identifies if a vehicle is registered' do
       expect(@facility.registered_vehicles).to include(@cruz, @camaro, @bolt)
       expect(@facility_2.registered_vehicles).to eq([])
@@ -101,7 +105,7 @@ RSpec.describe Facility do
     it 'administers written tests' do
       @facility_1.add_service('Written Test')
 # require 'pry'; binding.pry
-      expect(@facility_1.administer_written_test(@registrant_1)).to eq(false)
+      expect(@facility_1.administer_written_test(@registrant_1)).to eq(true)
       expect(@facility_2.administer_written_test(@registrant_1)).to eq(false)
     end
   end
