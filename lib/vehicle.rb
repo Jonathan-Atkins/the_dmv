@@ -31,19 +31,21 @@ class Vehicle
   end
 
   def calculate_fees
-    @registration_fee = case plate_type
-                          when :antique then 25
-                          when :ev then 200
-                          else 100
-                        end
+    @registration_fee = 
+      case plate_type
+      when :antique then 25
+      when :ev then 200
+      else 100
+      end
   end
 
   def assign_plate_type
-    @plate_type = case
-                    when antique? then :antique
-                    when electric_vehicle? then :ev
-                    else :regular
-                  end
+    @plate_type = 
+      case
+      when antique? then :antique
+      when electric_vehicle? then :ev
+      else :regular
+      end
   end
   
   def register(date) 
