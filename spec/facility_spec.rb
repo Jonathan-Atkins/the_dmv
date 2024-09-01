@@ -35,8 +35,13 @@ RSpec.describe Facility do
   end
 
   describe '#services' do
-    it 'can add available services' do
+
+    it 'starts with an empty array of services' do
       expect(@facility.services).to eq([])
+    end
+
+    it 'can add available services' do
+      
       @facility.add_service('New Drivers License')
       @facility.add_service('Renew Drivers License')
       @facility.add_service('Vehicle Registration')
@@ -44,6 +49,11 @@ RSpec.describe Facility do
       expect(@facility.services).to eq(['New Drivers License', 'Renew Drivers License', 'Vehicle Registration'])
     end
   end
+
+    xit 'cannot perform services it has not added' do
+    # require 'pry'; binding.pry
+      expect(@facility_1.administer_written_test(@registrant_1)).to eq(false)
+    end
 
   describe '#vehicle registration' do
 
@@ -54,7 +64,6 @@ RSpec.describe Facility do
     end
 
    it 'identifies if a vehicle is registered' do
-    # require 'pry'; binding.pry
       expect(@facility.registered_vehicles).to include(@cruz, @camaro, @bolt)
     end
 
@@ -84,4 +93,12 @@ RSpec.describe Facility do
     expect(@facility.collected_fees).to eq(325)  
     end 
   end
-end
+
+  # describe '#getting a drivers license' do
+  #   it 'administers written tests' do
+  #     @facility_1.add_service('Written Test')
+
+  #     expect(@facility_1.administer_written_test(@registrant_1)).to eq(false)
+
+  #   end
+  end
