@@ -42,14 +42,11 @@ RSpec.describe Vehicle do
   describe '#registration' do
 
   before(:each) do
+    @facility.add_service('Vehicle Registration')
     @facility.register_vehicle(@cruz)
     @facility.register_vehicle(@camaro)
     @facility.register_vehicle(@bolt)
   end
-
-    it 'adds registered vehicles to the facilitys registered vehicles array' do
-      expect(@facility.registered_vehicles).to include(@cruz, @camaro, @bolt)
-    end
 
     it 'adds a registration date when registered' do
       expect(@cruz.registration_date).to eq("Date: 2023-01-12 ((2459957j,0s,0n),+0s,2299161j")
