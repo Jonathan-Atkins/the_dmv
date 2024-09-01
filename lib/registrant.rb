@@ -1,12 +1,12 @@
 class Registrant
 
-    attr_reader :name, :age, :license_data, :written, :license, :renewed, :permit
+    attr_accessor :name, :age, :license_data, :permit
   
-    def initialize(registrant_info = {})
-      @name = registrant_info[:name]
-      @age = registrant_info[:age]
-      @license_data = registrant_info[:license_data] || {written: false, license: false, renewed: false}
-      @permit = registrant_info[:permit]
+    def initialize(name, age, permit = false)
+      @name = name
+      @age = age
+      @permit = permit
+      @license_data = {written: false, license: false, renewed: false}
     end
 
     def permit?
