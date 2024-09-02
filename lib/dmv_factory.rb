@@ -2,11 +2,22 @@ require 'faraday'
 require 'json'
 
 class DmvFactory
-    def self.create_facilities(co_dmv_office_locations)
+    def create_facilities(co_dmv_office_locations)
+        co_dmv_office_locations.map do |facility_data|
             Facility.new(
+                name: facility_data[:dmv_office],
+                address: [
+                        facility_data[:address_li],
+                        facility_data[:address__1],
+                        facility_data[:city],
+                        facility_data[:state],
+                        facility_data[:zip]
+                        ].compact.join(', '),
+                phone: facility_data[:phone],
+                # services: facility_data[:services_p],
+                registered_vehicles: facility_data[:registered_vehicles],
+                collected_fees: facility_data[:collected_fees]
             )
+                    end
     end
 end
-
-
-#take data and 
