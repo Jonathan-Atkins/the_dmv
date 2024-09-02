@@ -2,31 +2,28 @@ require 'spec_helper'
 
 RSpec.describe VehicleFactory do
     before(:each) do
+        @factory = VehicleFactory.new
         @wa_ev_registrations = DmvDataService.new.wa_ev_registrations
     end
 
     describe 'vehicle creation' do
         it 'maps vehicle data to new array' do
-        factory = VehicleFactory
-        vehicles = factory.create_vehicles(@wa_ev_registrations)
+            vehicles = @factory.create_vehicles(@wa_ev_registrations)
 
-        expect(vehicles).to all(include(:make, :model, :plate_type, :registration_date, :vin, :year))
-        expect(vehicles).to be_an(Array)
-        expect(vehicles.first).to be_a(Hash)
+            expect(vehicles).to all(be_a(Vehicle))
+            expect(vehicles).to be_an(Array)
         end
 
-        it 'includes correct attributes in vehicles array' do
-        factory = VehicleFactory
-        vehicles = factory.create_vehicles(@wa_ev_registrations)
-        first_vehicle = vehicles.first
+        it 'maps the correct data to the new Vehicle object' do
+            vehicles = @factory.create_vehicles(@wa_ev_registrations)
 
-        expect(first_vehicle[:engine_type]).to eq(@wa_ev_registrations.first[:engine_type])
-        expect(first_vehicle[:make]).to eq(@wa_ev_registrations.first[:make])
-        expect(first_vehicle[:model]).to eq(@wa_ev_registrations.first[:model])
-        expect(first_vehicle[:plate_type]).to eq(@wa_ev_registrations.first[:plate_type])
-        expect(first_vehicle[:registration_date]).to eq(@wa_ev_registrations.first[:registration_date])
-        expect(first_vehicle[:vin]).to eq(@wa_ev_registrations.first[:vin])
-        expect(first_vehicle[:year]).to eq(@wa_ev_registrations.first[:year])
+            expect(vehicles.first.make).to eq(@wa_ev_registrations.first[:make])
+            expect(vehicles.first.model).to eq(@wa_ev_registrations.first[:model])
+            expect(vehicles.first.plate_type).to eq(@wa_ev_registrations.first[:plate_type])
+            expect(vehicles.first.registration_date).to eq(@wa_ev_registrations.first[:registration_date])
+            expect(vehicles.first.vin).to eq(@wa_ev_registrations.first[:vin_1_10])
+            expect(vehicles.first.year).to eq(@wa_ev_registrations.first[:model_year])
+            expect(vehicles.first.engine).to eq(:ev)
         end
     end
 end
