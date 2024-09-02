@@ -8,7 +8,7 @@ class Vehicle
               :model,
               :engine,
               :registration_date,
-              :plate_type
+              :plate_typea
 
   attr_writer :registration_date,
               :plate_type
@@ -33,8 +33,7 @@ class Vehicle
 
   def electric_vehicle?
     @engine == :ev
-  end
+  end 
 end
-
 
 

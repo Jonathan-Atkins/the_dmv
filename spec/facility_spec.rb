@@ -36,6 +36,9 @@ RSpec.describe Facility do
     end
   end
 
+
+  #Vehicle Registration
+
   describe '#register vehicle' do
     it 'can register_vehicle & count fees' do
       expect(@cruz.registration_date).to eq(nil)
@@ -75,6 +78,8 @@ RSpec.describe Facility do
   
   describe 'Getting a Drivers Licence' do
     it 'can input a drivers license' do
+
+  #Written Test
     expect(@registrant_1.licensed_data).to eq({:written=>false, :license=>false, :renewed=>false})
     expect(@registrant_1.permit).to eq(true)
     expect(@facility_1.administer_written_test(@registrant_1)).to eq(false)
@@ -101,6 +106,8 @@ RSpec.describe Facility do
 
     expect(@facility_1.administer_road_test(@registrant_3)).to eq(false)
     
+
+# Road Test
     @registrant_3.earn_permit
     expect(@facility_1.administer_road_test(@registrant_3)).to eq(false)
     expect(@registrant_3.licensed_data).to eq({:written=>false, :license=>false, :renewed=>false})
@@ -111,32 +118,18 @@ RSpec.describe Facility do
     expect(@facility_1.administer_road_test(@registrant_2)).to eq(true)
     expect(@registrant_2.licensed_data).to eq({:written=>true, :license=>true, :renewed=>false})
   
+    
+    
+    # Renew License
     expect(@facility_1.renew_drivers_license(@registrant_1)).to eq(false)
-#=> false
 
-pry(main)> facility_1.add_service('Renew License')
-#=> ["Written Test", "Road Test", "Renew License"]
-
-pry(main)> facility_1.renew_drivers_license(registrant_1)
-#=> true
-
-pry(main)> registrant_1.license_data
-#=> {:written=>true, :license=>true, :renewed=>true}
-
-pry(main)> facility_1.renew_drivers_license(registrant_3)
-#=> false
-
-pry(main)> registrant_3.license_data
-#=> {:written=>false, :license=>false, :renewed=>false}
-
-pry(main)> facility_1.renew_drivers_license(registrant_2)
-#=> true
-
-pry(main)> registrant_2.license_data
-#=> {:written=>true, :license=>true, :renewed=>true}
-  
-  
-  
+    expect(@facility_1.add_service('Renew License')).to eq(["Written Test", "Road Test", "Renew License"])
+    expect(@facility_1.renew_drivers_license(@registrant_1)).to eq(true)
+    expect(@registrant_1.licensed_data).to eq({:written=>true, :license=>true, :renewed=>true})
+    expect(@facility_1.renew_drivers_license(@registrant_3)).to eq(false)
+    expect(@registrant_3.licensed_data).to eq({:written=>false, :license=>false, :renewed=>false})
+    expect(@facility_1.renew_drivers_license(@registrant_2)).to eq(true)
+    expect(@registrant_2.licensed_data).to eq({:written=>true, :license=>true, :renewed=>true})
   end
   end
 end

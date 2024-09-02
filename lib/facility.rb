@@ -50,11 +50,19 @@ class Facility
   end
 
   def administer_road_test(registrant)
-    return false unless @services.include?('Road Test') && registrant.licensed_data[:written] = true 
+    return false unless @services.include?('Road Test') 
+    return false unless registrant.licensed_data[:written] == true 
 
     registrant.licensed_data[:license] = true
     registrant.licensed_data[:license]
   end
+
+  def renew_drivers_license(registrant)
+    return false unless @services.include?('Renew License')
+    return false unless registrant.licensed_data[:license] == true
+
+    registrant.licensed_data[:renewed] = true
+  end  
 end
 
 
