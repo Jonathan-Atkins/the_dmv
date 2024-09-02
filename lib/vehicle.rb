@@ -9,7 +9,13 @@ class Vehicle
               :plate_type,
               :registration_date
 
-  attr_writer :registration_date, :plate_type
+  attr_writer :vin,
+              :year,
+              :make,
+              :model,
+              :engine,
+              :plate_type,
+              :registration_date
 
   def initialize(vehicle_details = {})
     @vin = vehicle_details[:vin]
@@ -29,12 +35,4 @@ class Vehicle
   def electric_vehicle?
     @engine == :ev
   end
-
- 
-  # def register(date) 
-  #   @registration_date = date
-    
-  #   assign_plate_type #should be in the facility class
-  #   calculate_fees
-  # end
 end
