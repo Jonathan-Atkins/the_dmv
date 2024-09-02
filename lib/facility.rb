@@ -40,6 +40,21 @@ class Facility
     end
     @registered_vehicles
   end
+
+  def administer_written_test(registrant)
+    return false unless @services.include?('Written Test') 
+    return false unless registrant.permit? == true
+
+    registrant.licensed_data[:written] = true
+    registrant.licensed_data[:written]
+  end
+
+  def administer_road_test(registrant)
+    return false unless @services.include?('Road Test') && registrant.licensed_data[:written] = true 
+
+    registrant.licensed_data[:license] = true
+    registrant.licensed_data[:license]
+  end
 end
 
 
