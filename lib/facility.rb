@@ -40,7 +40,6 @@ class Facility
     if @services.include?("Vehicle Registration")
         vehicle.registration_date = Date.today
         assign_plate_type(vehicle)
-        # require 'pry'; binding.pry
         calculate_fees(vehicle)
         @registered_vehicles << vehicle
     else
@@ -49,7 +48,6 @@ class Facility
   end
 
   def calculate_fees(vehicle)
-# require 'pry'; binding.pry
     @collected_fees += if vehicle.plate_type == :regular
       100
     elsif vehicle.plate_type == :ev
@@ -60,38 +58,22 @@ class Facility
   end
 
   def administer_written_test(registrant)
-    if @services.include?("Written Test")
-      if registrant.permit? == true && registrant.age >= 16
-        registrant.license_data[:written] = true
-      else
-      false
-      end
-    else
-      false
-    end
+    return false unless @services.include?("Written Test")
+    return false unless registrant.permit? == true && registrant.age >= 16
+
+    registrant.license_data[:written] = true
   end
 
   def administer_road_test(registrant)
-    if @services.include?("Road Test")
-      if registrant.license_data[:written] == true
-        registrant.license_data[:license] = true
-      else
-        false
-      end
-    else
-      false
-    end
+    return false unless @services.include?("Road Test")
+    return false unless registrant.license_data[:written] == true 
+      registrant.license_data[:license] = true
   end
 
   def renew_drivers_license(registrant)
-    if @services.include?("Renew License")
-      if registrant.license_data[:license] == true
+    return false unless @services.include?("Renew License")
+    return false unless registrant.license_data[:license] == true
+
         registrant.license_data[:renewed] = true
-      else
-        false
-      end
-    else
-      false
-    end
   end
 end
