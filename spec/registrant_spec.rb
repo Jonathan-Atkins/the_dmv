@@ -28,7 +28,6 @@ RSpec.describe Registrant do
 
     describe 'permit' do
         it 'identifies whether the registrant has a permit' do
-            # require 'pry'; binding.pry
         expect(@registrant_1.permit?).to eq(true)
         expect(@registrant_2.permit?).to eq(false)
         end
@@ -37,6 +36,13 @@ RSpec.describe Registrant do
         @registrant_2.earn_permit
     
         expect(@registrant_2.permit?).to eq(true)
+        end
+
+        it 'will not let a registrant under the age of 15 obtain a permit' do
+        @registrant_4 = Registrant.new("Susie", 3)
+        @registrant_4.earn_permit
+
+        expect(@registrant_2.permit?).to eq(false)
         end
     end
 
@@ -48,7 +54,6 @@ RSpec.describe Registrant do
         end
 
         it 'passes the written test' do
-        
         expect(@registrant_1.license_data).to eq({written: true, license: false, renewed: false})
         end
 
