@@ -15,8 +15,7 @@ class Registrant
     end
 
     def earn_permit
+        return false unless age >= 15
         @permit = true
     end
-
-  
 end
