@@ -28,7 +28,7 @@ class Facility
 
   def assign_plate_type(vehicle)
     if vehicle.antique?
-       vehicle.plate_type = :antique
+      vehicle.plate_type = :antique
     elsif vehicle.electric_vehicle?
       vehicle.plate_type = :ev
     else

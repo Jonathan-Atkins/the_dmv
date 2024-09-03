@@ -29,9 +29,9 @@ RSpec.describe DmvFactory do
         @ny_dmv_office_locations = DmvDataService.new.ny_dmv_office_locations
         facilities = @dmv_factory.create_ny_facilities(@ny_dmv_office_locations)
 
-        expect(facilities.first.name).to eq("HUNTINGTON, DISTRICT OFFICE")
-        expect(facilities.first.address).to eq("1815 E JERICHO TURNPIKE, HUNTINGTON, NY, 11743")
-        expect(facilities.first.phone).to eq("7184774820")
+        expect(facilities.first.name).to eq("HUDSON, COUNTY OFFICE")
+        expect(facilities.first.address).to eq("560 WARREN STREET, HUDSON, NY, 12534")
+        expect(facilities.first.phone).to eq("5188283350")
         expect(facilities.first.services).to eq([])
         expect(facilities.first.registered_vehicles).to eq([])
         expect(facilities.first.collected_fees).to eq(0)
