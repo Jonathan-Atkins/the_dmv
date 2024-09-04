@@ -1,4 +1,4 @@
-require './lib/registrant'
+ require './lib/registrant'
 require './lib/facility'
 
 
@@ -18,7 +18,7 @@ class Registrant
     end
 
     def earn_permit
-        @permit = true unless @age < 16  
+        @permit = true  
     end
 
 

@@ -8,7 +8,7 @@ class Vehicle
               :model,
               :engine,
               :registration_date,
-              :plate_typea
+              :plate_type
 
   attr_writer :registration_date,
               :plate_type
@@ -17,7 +17,7 @@ class Vehicle
     @vin = vehicle_details[:vin]
     @year = vehicle_details[:year]
     @make = vehicle_details[:make]
-    @model = vehicle_details[:model]
+    @model = vehicle_details[:model_year]
     @engine = vehicle_details[:engine]
     @registration_date = nil
     @plate_type = :regular

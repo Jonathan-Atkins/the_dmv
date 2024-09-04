@@ -9,27 +9,16 @@ it 'can initialize VehicleFactory' do
     expect(@factory).to be_an_instance_of(VehicleFactory)
   end
 
-  it 'Can create a vehicle based on the given parameters of vehicles in WA' do
+it 'Can create a vehicle based on the given parameters of vehicles in WA' do
     
-    @factory.create_vehicles(@data)
+    vehicles = VehicleFactory.create_vehicles(@data)
     
-    expected_first_entry = {
-    :electric_vehicle_type => "Plug-in Hybrid Electric Vehicle",
-    :vin =>  "JTDKN3DP8D",
-    :dol_vehicle_id => "229686908",
-    :model_year => "2013",
-    :make => "TOYOTA",
-    :model => "Prius Plug-in"
-  }
-
-  expected_last_entry = {
-    :electric_vehicle_type => "Plug-in Hybrid Electric Vehicle",
-    :vin_1_10 => "1G1RD6E47D",
-    :dol_vehicle_id => "289314742",
-    :model_year => "2013",
-    :make => "CHEVROLET",
-    :model => "Volt"
-  }
-  expect(@factory.create_vehicles(@data).count).to eq(@data.count)
-  end
+    first_vehicle = vehicles.first
+    
+    expect(first_vehicle.vin).to eq('5YJYGDED6M')
+    expect(first_vehicle.year).to eq('2021')
+    expect(first_vehicle.make).to eq('TESLA')
+    expect(first_vehicle.model).to eq('Model Y')
+    expect(first_vehicle.engine).to eq(:ev)
+    end
 end
