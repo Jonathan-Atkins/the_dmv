@@ -11,14 +11,14 @@ it 'can initialize VehicleFactory' do
 
 it 'Can create a vehicle based on the given parameters of vehicles in WA' do
     
-    vehicles = VehicleFactory.create_vehicles(@data)
+  vehicles = @factory.create_vehicles(@data) 
     
-    first_vehicle = vehicles.first
-    
+  first_vehicle = vehicles.first
+   #require 'pry' ; binding.pry 
     expect(first_vehicle.vin).to eq('5YJYGDED6M')
     expect(first_vehicle.year).to eq('2021')
     expect(first_vehicle.make).to eq('TESLA')
     expect(first_vehicle.model).to eq('Model Y')
     expect(first_vehicle.engine).to eq(:ev)
-    end
+  end
 end
