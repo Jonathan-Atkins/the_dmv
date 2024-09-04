@@ -12,8 +12,10 @@ RSpec.describe Facility do
     @camaro = Vehicle.new({vin: '1a2b3c4d5e6f', year: 1969, make: 'Chevrolet', model: 'Camaro', engine: :ice})
 
     @registrant_1 = Registrant.new("Bruce", 18, true) 
-
+    @registrant_2 = Registrant.new("Penny", 16 )
+    @registrant_3 = Registrant.new("Tucker", 15)
   end
+
   describe '#initialize' do
     it 'can initialize' do
       expect(@facility).to be_an_instance_of(Facility)
@@ -30,20 +32,16 @@ RSpec.describe Facility do
     end
 
     it 'starts with an empty array of registered vehicles' do
-
       expect(@facility.registered_vehicles).to eq([])
     end
-      
   end
 
-  describe '#services' do
-
+  describe '#facility services' do
     it 'starts with an empty array of services' do
       expect(@facility.services).to eq([])
     end
 
-    it 'can add available services' do
-      
+    it 'can add services' do
       @facility.add_service('New Drivers License')
       @facility.add_service('Renew Drivers License')
       @facility.add_service('Vehicle Registration')
@@ -53,16 +51,14 @@ RSpec.describe Facility do
   end
 
   describe '#vehicle registration' do
+    before(:each) do
+        @facility.add_service('Vehicle Registration')
+        @facility.register_vehicle(@cruz)
+        @facility.register_vehicle(@camaro)
+        @facility.register_vehicle(@bolt)
+      end
 
-  before(:each) do
-      @facility.add_service('Vehicle Registration')
-      @facility.register_vehicle(@cruz)
-      @facility.register_vehicle(@camaro)
-      @facility.register_vehicle(@bolt)
-    end
-
-    it 'cannot perform services it has not added' do
-      # require 'pry'; binding.pry
+      it 'cannot perform services it has not added' do
         expect(@facility_2.register_vehicle(@cruz)).to eq(false)
         expect(@facility_2.administer_written_test(@registrant_1)).to eq(false)
       end  
@@ -71,7 +67,7 @@ RSpec.describe Facility do
         expect(@facility.registered_vehicles).to include(@cruz, @camaro, @bolt)
       end  
 
-   it 'identifies if a vehicle is registered' do
+      it 'identifies if a vehicle is registered' do
       expect(@facility.registered_vehicles).to include(@cruz, @camaro, @bolt)
       expect(@facility_2.registered_vehicles).to eq([])
     end
@@ -85,44 +81,45 @@ RSpec.describe Facility do
     end
 
     it 'adds a plate_type when registered' do
-
       expect(@cruz.plate_type).to eq(:regular)
       expect(@camaro.plate_type).to eq(:antique)
       expect(@bolt.plate_type).to eq(:ev)
     end
 
     it 'collects regisration fees' do
-
-    expect(@facility.collected_fees).to eq(325)  
+      expect(@facility.collected_fees).to eq(325)  
     end 
   end
 
   describe '#getting a drivers license' do
-    it 'administers written tests' do
+    before(:each) do
       @facility_1.add_service('Written Test')
-# require 'pry'; binding.pry
+      @facility_1.add_service('Road Test')
+      @facility_1.add_service('Renew License')
+    end
+    it 'administers written tests after written tests are added to a facilitys services' do
       expect(@facility_1.administer_written_test(@registrant_1)).to eq(true)
       expect(@facility_2.administer_written_test(@registrant_1)).to eq(false)
     end
 
+    it 'only administers road tests to registrants who have permits and are 16 or older' do
+      expect(@facility_1.administer_written_test(@registrant_2)).to eq(false)
+      expect(@facility_1.administer_written_test(@registrant_3)).to eq(false)
+    end
+
     it 'administers road tests' do
-      @facility_1.add_service('Written Test')
-      @facility_1.add_service('Road Test')
       @facility_1.administer_written_test(@registrant_1)
-      # require 'pry'; binding.pry
+
       expect(@facility_1.administer_road_test(@registrant_1)).to eq(true)
       expect(@facility_2.administer_road_test(@registrant_1)).to eq(false)
     end
 
     it 'renews licenses' do
-      @facility_1.add_service('Written Test')
-      @facility_1.add_service('Road Test')
-      @facility_1.add_service('Renew License')
       @facility_1.administer_written_test(@registrant_1)
       @facility_1.administer_road_test(@registrant_1)
-      # require 'pry'; binding.pry
+
       expect(@facility_1.renew_drivers_license(@registrant_1)).to eq(true)
-      expect(@facility_2.administer_road_test(@registrant_1)).to eq(false)
+      expect(@facility_2.renew_drivers_license(@registrant_1)).to eq(false)
     end
   end
 end

@@ -1,6 +1,9 @@
 class Dmv
 
-  attr_reader :name, :address, :phone, :facilities
+  attr_reader :name, 
+              :address, 
+              :phone, 
+              :facilities
 
   def initialize(attributes = {})
     @name = attributes[:name]

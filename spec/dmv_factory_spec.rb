@@ -48,5 +48,4 @@ RSpec.describe DmvFactory do
         expect(facilities.first.registered_vehicles).to eq([])
         expect(facilities.first.collected_fees).to eq(0)
     end
-
 end
